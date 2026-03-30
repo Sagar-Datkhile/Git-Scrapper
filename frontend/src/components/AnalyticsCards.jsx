@@ -7,25 +7,25 @@ const AnalyticsCards = ({ summary }) => {
       title: 'Total Contributors',
       value: summary.totalContributors || 0,
       icon: <Users size={24} color="var(--primary-blue)" />,
-      bgColor: 'var(--light-blue)'
+      bgColor: 'rgba(59, 130, 246, 0.15)'
     },
     {
       title: 'Total Commits',
       value: summary.totalCommits || 0,
       icon: <GitCommit size={24} color="#10b981" />,
-      bgColor: '#ecfdf5'
+      bgColor: 'rgba(16, 185, 129, 0.15)'
     },
     {
       title: 'Lines Added',
       value: summary.totalLinesAdded ? `+${summary.totalLinesAdded.toLocaleString()}` : '+0',
       icon: <Code size={24} color="#8b5cf6" />,
-      bgColor: '#f5f3ff'
+      bgColor: 'rgba(139, 92, 246, 0.15)'
     },
     {
       title: 'Lines Deleted',
       value: summary.totalLinesDeleted ? `-${summary.totalLinesDeleted.toLocaleString()}` : '-0',
       icon: <Activity size={24} color="#ef4444" />,
-      bgColor: '#fef2f2'
+      bgColor: 'rgba(239, 68, 68, 0.15)'
     }
   ];
 

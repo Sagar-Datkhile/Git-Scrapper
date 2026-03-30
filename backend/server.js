@@ -127,15 +127,25 @@ app.post('/api/analyze', async (req, res) => {
     const activityUrl = `https://api.github.com/repos/${owner}/${repo}/stats/commit_activity`;
     let commitsByDate = [];
     try {
-      const activityRes = await axios.get(activityUrl, { headers });
-      if (activityRes.status === 200 && Array.isArray(activityRes.data)) {
-        // weeks is array of { days [sunday...saturday], total, week (timestamp) }
-        activityRes.data.forEach(week => {
-          if (week.total > 0) { // Only add if there were commits
-            const date = new Date(week.week * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-            commitsByDate.push({ date, commits: week.total });
-          }
-        });
+      let activityRetries = 0;
+      while (activityRetries < 3) {
+        const activityRes = await axios.get(activityUrl, { headers });
+        if (activityRes.status === 200 && Array.isArray(activityRes.data)) {
+          // weeks is array of { days [sunday...saturday], total, week (timestamp) }
+          activityRes.data.forEach(week => {
+            if (week.total > 0) { // Only add if there were commits
+              const date = new Date(week.week * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+              commitsByDate.push({ date, commits: week.total });
+            }
+          });
+          break; // Done
+        } else if (activityRes.status === 202) {
+          // Github caching
+          await new Promise(r => setTimeout(r, 2000));
+          activityRetries++;
+        } else {
+          break; // Other status
+        }
       }
     } catch(err) {
       console.error("Failed to fetch commit activity");

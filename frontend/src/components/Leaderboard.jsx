@@ -17,8 +17,8 @@ const Leaderboard = ({ contributors }) => {
   const getRankIcon = (index) => {
     switch (index) {
       case 0: return <Trophy size={20} color="#fbbf24" />;
-      case 1: return <Star size={20} color="#9ca3af" />;
-      case 2: return <Award size={20} color="#b45309" />;
+      case 1: return <Star size={20} color="#e5e7eb" />;
+      case 2: return <Award size={20} color="#d97706" />;
       default: return <span style={{ width: '20px', textAlign: 'center', color: 'var(--text-muted)', fontWeight: 'bold' }}>{index + 1}</span>;
     }
   };
@@ -32,7 +32,7 @@ const Leaderboard = ({ contributors }) => {
       
       <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {sortedContributors.slice(0, 10).map((contributor, index) => (
-          <div key={contributor.login} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', background: 'rgba(255,255,255,0.5)', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
+          <div key={contributor.login} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
             {getRankIcon(index)}
             <img src={contributor.avatar_url || `https://ui-avatars.com/api/?name=${contributor.login}&background=random`} alt={contributor.login} style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
             <div style={{ flex: 1 }}>
