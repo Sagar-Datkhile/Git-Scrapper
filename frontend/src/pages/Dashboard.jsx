@@ -41,10 +41,78 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '60vh' }}>
-        <Loader2 className="animate-spin" size={64} color="var(--primary-blue)" style={{ marginBottom: '1rem' }} />
-        <h2 style={{ color: 'var(--text-main)' }}>Analyzing {owner}/{repo}...</h2>
-        <p style={{ color: 'var(--text-muted)' }}>This may take a few moments for large repositories.</p>
+      <div className="animate-fade-in" style={{ paddingBottom: '3rem' }}>
+        {/* Header Skeleton */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+          <div className="skeleton" style={{ width: '80px', height: '40px', borderRadius: '8px' }}></div>
+          <div>
+            <div className="skeleton" style={{ width: '250px', height: '32px', marginBottom: '8px' }}></div>
+            <div className="skeleton" style={{ width: '150px', height: '16px' }}></div>
+          </div>
+        </div>
+        
+        {/* Analytics Cards Skeleton */}
+        <div className="grid md:grid-cols-4 gap-4" style={{ marginBottom: '2rem' }}>
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="glass-panel" style={{ padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div className="skeleton" style={{ minWidth: '48px', height: '48px', borderRadius: '12px' }}></div>
+              <div style={{ flex: 1, width: '100%' }}>
+                <div className="skeleton" style={{ width: '60%', height: '14px', marginBottom: '12px' }}></div>
+                <div className="skeleton" style={{ width: '40%', height: '24px' }}></div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Charts & Leaderboard Skeleton */}
+        <div className="grid md:grid-cols-3 gap-4" style={{ gap: '2rem' }}>
+          <div style={{ gridColumn: 'span 2', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            {/* Area Chart Skeleton */}
+            <div className="glass-panel" style={{ padding: '2rem', height: 'auto', minHeight: '350px' }}>
+              <div className="skeleton" style={{ width: '200px', height: '24px', marginBottom: '2rem' }}></div>
+              <div className="skeleton" style={{ width: '100%', height: '250px', borderRadius: '8px' }}></div>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="glass-panel" style={{ padding: '2rem', height: '300px' }}>
+                <div className="skeleton" style={{ width: '150px', height: '24px', marginBottom: '2rem' }}></div>
+                <div className="skeleton" style={{ width: '100%', height: '200px' }}></div>
+              </div>
+              <div className="glass-panel" style={{ padding: '2rem', height: '300px' }}>
+                <div className="skeleton" style={{ width: '180px', height: '24px', marginBottom: '2rem' }}></div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div className="skeleton" style={{ width: '200px', height: '200px', borderRadius: '50%' }}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Leaderboard Skeleton */}
+          <div className="glass-panel" style={{ padding: '2rem', height: '100%' }}>
+            <div className="skeleton" style={{ width: '180px', height: '24px', marginBottom: '2rem' }}></div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
+                  <div className="skeleton" style={{ minWidth: '24px', height: '24px', borderRadius: '50%' }}></div>
+                  <div className="skeleton" style={{ minWidth: '40px', height: '40px', borderRadius: '50%' }}></div>
+                  <div style={{ flex: 1, width: '100%' }}>
+                    <div className="skeleton" style={{ width: '70%', height: '16px', marginBottom: '8px' }}></div>
+                    <div className="skeleton" style={{ width: '40%', height: '12px' }}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        
+        {/* Animated Loading Text Overlay */}
+        <div style={{ position: 'fixed', bottom: '2rem', right: '2rem', background: 'var(--glass-bg)', backdropFilter: 'blur(12px)', padding: '1rem 1.5rem', borderRadius: '30px', border: '1px solid var(--glass-border)', display: 'flex', alignItems: 'center', gap: '1rem', boxShadow: 'var(--glass-shadow)', zIndex: 100, animation: 'fadeInUp 0.5s ease-out forwards' }}>
+           <Loader2 className="animate-spin" size={24} color="var(--primary-blue)" />
+           <div>
+             <h3 style={{ margin: 0, fontSize: '0.95rem', color: 'var(--text-main)', fontWeight: 'bold' }}>Analyzing {owner}/{repo}...</h3>
+             <p style={{ margin: 0, fontSize: '0.75rem', color: 'var(--text-muted)' }}>Crunching repository data</p>
+           </div>
+        </div>
       </div>
     );
   }
